@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'dart:ui';
 import 'package:flutter/material.dart';
 
 class GridButtons extends StatelessWidget {
@@ -13,12 +14,14 @@ class GridButtons extends StatelessWidget {
           SingleChildScrollView(
             child: Column(
               children: <Widget>[
-                _titles()
+                _titles(),
+                _buttonsGrid()
               ],
             ),
           )
         ],
-      )
+      ),
+      bottomNavigationBar: _bottomNavigationBar(context),
     );
   }
 
@@ -84,5 +87,87 @@ class GridButtons extends StatelessWidget {
     );
   }
 
+  Widget _bottomNavigationBar(BuildContext context) {
+    return new Theme(
+      data: Theme.of(context).copyWith(
+        canvasColor: Color.fromRGBO(55, 57, 88, 1.0),
+        primaryColor: Colors.pinkAccent,
+        textTheme: Theme.of(context)
+          .textTheme.copyWith(caption: TextStyle(color: Color.fromRGBO(116, 117, 152, 1.0)))
+      ),
+      child: BottomNavigationBar(
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            title: Container(),
+            icon: Icon(Icons.calendar_today, size: 30.0)
+          ),
+          BottomNavigationBarItem(
+            title: Container(),
+            icon: Icon(Icons.bubble_chart, size: 30.0)
+          ),
+          BottomNavigationBarItem(
+            title: Container(),
+            icon: Icon(Icons.supervised_user_circle, size: 30.0)
+          )
+        ],
+      ),
+    );
+  }
 
+  Widget _buttonsGrid () {
+    return Table(
+      children: <TableRow>[
+        TableRow(
+          children: [
+            _buildButtonGrid(Colors.blue, Icons.border_all, 'General'),
+            _buildButtonGrid(Colors.purpleAccent, Icons.directions_bus, 'Bus'),
+          ]
+        ),
+        TableRow(
+          children: [
+            _buildButtonGrid(Colors.pinkAccent, Icons.shop, 'Buy'),
+            _buildButtonGrid(Colors.orange, Icons.insert_drive_file, 'File'),
+          ]
+        ),
+        TableRow(
+          children: [
+            _buildButtonGrid(Colors.blueAccent, Icons.movie_filter, 'Entertaiment'),
+            _buildButtonGrid(Colors.green, Icons.cloud, 'Grocery'),
+          ]
+        ),
+        TableRow(
+          children: [
+            _buildButtonGrid(Colors.red, Icons.collections, 'Photos'),
+            _buildButtonGrid(Colors.teal, Icons.help_outline, 'Help'),
+          ]
+        )
+      ],
+    );
+  }
+
+  Widget _buildButtonGrid (Color color, IconData icon, String txt) {
+    return ClipRect(
+      child: Container(
+        height: 180.0,
+        margin: EdgeInsets.all(15.0),
+        decoration: BoxDecoration(
+          color: Color.fromRGBO(62, 66, 107, 0.7),
+          borderRadius: BorderRadius.circular(20.0)
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: <Widget>[
+            SizedBox(height: 5.0,),
+            CircleAvatar(
+              backgroundColor: color,
+              radius: 35.0,
+              child: Icon(icon, color: Colors.white, size: 30.0,),
+            ),
+            Text(txt, style: TextStyle(color: color)),
+            SizedBox(height: 5.0,)
+          ],
+        ),
+      ),
+    );
+  }
 }

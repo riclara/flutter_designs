@@ -10,18 +10,19 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light.copyWith(
-      // statusBarColor: Colors.black,
-      statusBarBrightness: Brightness.light
+      statusBarColor: Colors.transparent
     ));
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Designs',
-      initialRoute: 'grid',
-      routes: {
-        'basic': (BuildContext context) => BasicPage(),
-        'scroll': (BuildContext context) => ScrollPage(),
-        'grid': (BuildContext context) => GridButtons(),
-      },
+      
+      home: PageView(
+        children: <Widget>[
+          BasicPage(),
+          ScrollPage(),
+          GridButtons()
+        ],
+      ),
     );
   }
 }
